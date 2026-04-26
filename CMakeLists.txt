@@ -4,4 +4,5 @@ project(cubebot C)
 set(CMAKE_C_STANDARD 11)
 
 add_executable(cubebot main.c
-        cube.h)
+        cube.h
+        cube.c)
