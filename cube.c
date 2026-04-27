@@ -2,7 +2,6 @@
 // Created by andre on 2026-04-25.
 //
 #include "cube.h"
-#include <stdio.h>
 
 cube_t newSolvedCube() {
     cube_t cube;
@@ -192,6 +191,32 @@ void cubeMoveBP(cube_t *c){cubeMoveB(c);cubeMoveB(c);cubeMoveB(c);}
 void cubeMoveRP(cube_t *c){cubeMoveR(c);cubeMoveR(c);cubeMoveR(c);}
 void cubeMoveLP(cube_t *c){cubeMoveL(c);cubeMoveL(c);cubeMoveL(c);}
 
+void scrambleCube(cube_t *c) {
+    for (int i=0; i<25;i++) {
+        const int move = rand() % 6;
+        switch (move) {
+            case 0:
+                cubeMoveU(c);
+                break;
+            case 1:
+                cubeMoveD(c);
+                break;
+            case 2:
+                cubeMoveF(c);
+                break;
+            case 3:
+                cubeMoveB(c);
+                break;
+            case 4:
+                cubeMoveR(c);
+                break;
+            case 5:
+                cubeMoveL(c);
+                break;
+
+        }
+    }
+}
 
 void sexy(cube_t *c) {
     for (int i =0; i<24; i++) {

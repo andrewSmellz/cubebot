@@ -5,6 +5,9 @@
 #ifndef CUBEBOT_CUBE_H
 #define CUBEBOT_CUBE_H
 #include <stdint.h>
+#include <stdlib.h>
+#include <stdio.h>
+
 
 
 /**
@@ -56,6 +59,8 @@ void cubeMoveFP(cube_t *c);
 void cubeMoveBP(cube_t *c);
 void cubeMoveRP(cube_t *c);
 void cubeMoveLP(cube_t *c);
+
+void scrambleCube(cube_t *c);
 
 void sexy(cube_t *c);
 
