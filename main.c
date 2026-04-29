@@ -5,8 +5,8 @@
 
 int main(void) {
     cube_t c = newSolvedCube();
-    sexy(&c);
+    char* scramble = scrambleCube(&c);
+    printf("%s\n", scramble);
     printf("valid: %d\n", checkSolvedCube(&c));
     return 0;
 }
-

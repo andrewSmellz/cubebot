@@ -5,4 +5,6 @@ set(CMAKE_C_STANDARD 11)
 
 add_executable(cubebot main.c
         cube.h
-        cube.c)
+        cube.c
+        solver.c
+        solver.h)

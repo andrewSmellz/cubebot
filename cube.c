@@ -2,7 +2,7 @@
 // Created by andre on 2026-04-25.
 //
 #include "cube.h"
-
+#define SCRAMBLE_LEN 50
 cube_t newSolvedCube() {
     cube_t cube;
     for (int i=0;i<8;i++) {
@@ -80,10 +80,10 @@ void cubeMoveF(cube_t *c) {
     c->cornerPerm[1] = temp;
 
     temp = c->cornerOren[0];
-    c->cornerOren[0] = (c->cornerOren[4]+2) % 3;
-    c->cornerOren[4] = (c->cornerOren[5]+1) % 3;
-    c->cornerOren[5] = (c->cornerOren[1]+2) % 3;
-    c->cornerOren[1] = (temp+1)%3;
+    c->cornerOren[0] = (c->cornerOren[4]+1) % 3;
+    c->cornerOren[4] = (c->cornerOren[5]+2) % 3;
+    c->cornerOren[5] = (c->cornerOren[1]+1) % 3;
+    c->cornerOren[1] = (temp+2)%3;
 
     temp = c->edgePerm[1];
     c->edgePerm[1] = c->edgePerm[4];
@@ -132,10 +132,10 @@ void cubeMoveR(cube_t *c) {
     c->cornerPerm[3] = temp;
 
     temp = c->cornerOren[0];
-    c->cornerOren[0] = (c->cornerOren[4]+2) % 3;
-    c->cornerOren[4] = (c->cornerOren[7]+1) % 3;
-    c->cornerOren[7] = (c->cornerOren[3]+2) % 3;
-    c->cornerOren[3] = (temp+1)%3;
+    c->cornerOren[0] = (c->cornerOren[4]+1) % 3;
+    c->cornerOren[4] = (c->cornerOren[7]+2) % 3;
+    c->cornerOren[7] = (c->cornerOren[3]+1) % 3;
+    c->cornerOren[3] = (temp+2)%3;
 
     temp = c->edgePerm[0];
     c->edgePerm[0] = c->edgePerm[4];
@@ -191,31 +191,40 @@ void cubeMoveBP(cube_t *c){cubeMoveB(c);cubeMoveB(c);cubeMoveB(c);}
 void cubeMoveRP(cube_t *c){cubeMoveR(c);cubeMoveR(c);cubeMoveR(c);}
 void cubeMoveLP(cube_t *c){cubeMoveL(c);cubeMoveL(c);cubeMoveL(c);}
 
-void scrambleCube(cube_t *c) {
-    for (int i=0; i<25;i++) {
+char* scrambleCube(cube_t *c) {
+    static char scramble[SCRAMBLE_LEN+1];
+    for (int i=0; i<SCRAMBLE_LEN;i++) {
         const int move = rand() % 6;
         switch (move) {
             case 0:
                 cubeMoveU(c);
+                scramble[i] = 'U';
                 break;
             case 1:
                 cubeMoveD(c);
+                scramble[i] = 'D';
                 break;
             case 2:
                 cubeMoveF(c);
+                scramble[i] = 'F';
                 break;
             case 3:
                 cubeMoveB(c);
+                scramble[i] = 'B';
                 break;
             case 4:
                 cubeMoveR(c);
+                scramble[i] = 'R';
                 break;
             case 5:
                 cubeMoveL(c);
+                scramble[i] = 'L';
                 break;
 
         }
     }
+    scramble[SCRAMBLE_LEN] = '\0';
+    return scramble;
 }
 
 void sexy(cube_t *c) {

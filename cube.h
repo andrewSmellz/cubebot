@@ -60,7 +60,7 @@ void cubeMoveBP(cube_t *c);
 void cubeMoveRP(cube_t *c);
 void cubeMoveLP(cube_t *c);
 
-void scrambleCube(cube_t *c);
+char* scrambleCube(cube_t *c);
 
 void sexy(cube_t *c);
 
