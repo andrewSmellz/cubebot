@@ -227,7 +227,7 @@ char* scrambleCube(cube_t *c) {
     return scramble;
 }
 
-void sexy(cube_t *c) {
+void sexyLoop(cube_t *c) {
     for (int i =0; i<24; i++) {
         cubeMoveR(c);
         cubeMoveU(c);

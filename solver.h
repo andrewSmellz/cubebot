@@ -10,4 +10,8 @@ int cornerOrientationCoordinate(const cube_t *c);
 int edgeOrientationCoordinate(const cube_t *c);
 int udSliceCoordinate(const cube_t *c);
 
+int cornerPermutationCoordinate(const cube_t *c);
+int edgePermutationCoordinate(const cube_t *c);
+int udSliceCoordinate2(const cube_t *c);
+
 #endif //CUBEBOT_SOLVER_H

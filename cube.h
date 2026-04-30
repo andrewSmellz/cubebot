@@ -62,7 +62,7 @@ void cubeMoveLP(cube_t *c);
 
 char* scrambleCube(cube_t *c);
 
-void sexy(cube_t *c);
+void sexyLoop(cube_t *c);
 
 
 #endif //CUBEBOT_CUBE_H

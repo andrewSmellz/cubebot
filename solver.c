@@ -59,3 +59,53 @@ int udSliceCoordinate(const cube_t *c) {
     }
     return coord;
 }
+
+int cornerPermutationCoordinate(const cube_t *c) {
+    int coord=0;
+    for (int i=7;i>0;i--) {
+        int s=0;
+        for (int j=i-1;j>=0;j--) {
+            if (c->cornerPerm[j] > c->cornerPerm[i]) {
+                s++;
+            }
+        }
+        coord=(coord+s)*i;
+
+    }
+    return coord;
+}
+
+int edgePermutationCoordinate(const cube_t *c) {
+    int coord=0;
+    for (int i=11;i>0;i--) {
+        int s=0;
+        for (int j=i-1;j>=0;j--) {
+            if (c->edgePerm[j] > c->edgePerm[i]) {
+                s++;
+            }
+        }
+        coord=(coord+s)*i;
+    }
+    return coord;
+}
+
+int udSliceCoordinate2(const cube_t *c) {
+    int arr[4];
+    int j=0;
+    for (int i=0;i<12;i++) {
+        const int e = c->edgePerm[i];
+        if (e >= 4 && e <= 7)
+            arr[j++] = e;
+    }
+    int coord=0;
+    for (j=3;j>0;j--) {
+        int s=0;
+        for (int k=j-1;k>=0;k--) {
+            if (arr[k]>arr[j]) {
+                s++;
+            }
+        }
+        coord=(coord+s)*j;
+    }
+    return udSliceCoordinate(c)*24+coord;
+}
