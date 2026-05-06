@@ -9,4 +9,6 @@ add_executable(cubebot main.c
         solver.c
         solver.h
         movetable.c
-        movetable.h)
+        movetable.h
+        tests.c
+        tests.h)

@@ -132,10 +132,10 @@ void cubeMoveR(cube_t *c) {
     c->cornerPerm[3] = temp;
 
     temp = c->cornerOren[0];
-    c->cornerOren[0] = (c->cornerOren[4]+1) % 3;
-    c->cornerOren[4] = (c->cornerOren[7]+2) % 3;
-    c->cornerOren[7] = (c->cornerOren[3]+1) % 3;
-    c->cornerOren[3] = (temp+2)%3;
+    c->cornerOren[0] = (c->cornerOren[4]+2) % 3;
+    c->cornerOren[4] = (c->cornerOren[7]+1) % 3;
+    c->cornerOren[7] = (c->cornerOren[3]+2) % 3;
+    c->cornerOren[3] = (temp+1)%3;
 
     temp = c->edgePerm[0];
     c->edgePerm[0] = c->edgePerm[4];

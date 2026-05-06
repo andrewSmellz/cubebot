@@ -117,7 +117,7 @@ void invertCornerOrientationCoordinate(cube_t *c, int coord) {
         c->cornerOren[i]=coord%3;
         coord/=3;
     }
-    parity=parity+coord%3;
+    parity=parity%3;
     switch (parity) {
         case 0: c->cornerOren[7] = 0; break;
         case 1: c->cornerOren[7] = 2; break;
@@ -171,6 +171,73 @@ void invertUDSliceCoordinate(cube_t *c, int coord) {
  * InvEdgePermCoord
  * InvUDSliceSortedCoord
  */
-void invertCornerPermutationCoordinate(cube_t *c, int coord){}
-void invertEdgePermutationCoordinate(cube_t *c, int coord){}
-void invertUDSliceCoordinate2(cube_t *c, int coord){}
+void invertCornerPermutationCoordinate(cube_t *c, int coord) {
+    int order[8];
+    int used[8];
+    for (int i=0;i<8;i++) {
+        used[i]=0;
+        order[i]=coord%(i+1);
+        coord/=(i+1);
+    }
+    for (int i=7;i>=0;i--) {
+        int k=7;
+        while (used[k]) k--;
+        while (order[i]>0) {
+            order[i]--;
+            k--;
+            while (used[k]!=0) k--;
+        }
+        c->cornerPerm[i]=k;
+        used[k]=1;
+    }
+}
+void invertEdgePermutationCoordinate(cube_t *c, int coord) {
+    int order[12];
+    int used[12];
+    for (int i=0;i<12;i++) {
+        used[i]=0;
+        order[i]=coord%(i+1);
+        coord/=(i+1);
+    }
+    for (int i=11;i>=0;i--) {
+        int k=11;
+        while (used[k]) k--;
+        while (order[i]>0) {
+            order[i]--;
+            k--;
+            while (used[k]!=0) k--;
+        }
+        c->edgePerm[i]=k;
+        used[k]=1;
+    }
+}
+void invertUDSliceCoordinate2(cube_t *c, int coord) {
+    int used[4]={0};
+    int order[4];
+    int x=coord%24;
+    invertUDSliceCoordinate(c,coord/24);
+    for (int i=0;i<4;i++) {
+        order[i]=x %(i+1);
+        x/=(i+1);
+    }
+    for (int i=3;i>=0;i--) {
+        int k=3;
+        while (used[k]) k--;
+        while (order[i]>0) {
+            order[i]--;
+            k--;
+            while (used[k]!=0) k--;
+        }
+
+        int m=-1;
+        for (int j=0; j<12; j++) {
+            int e = c->edgePerm[j];
+            if (e==4 || e==5 || e==6 || e==7) m++;
+            if (m==i) {
+                c->edgePerm[j]=k+4;
+                used[k]=1;
+                break;
+            }
+        }
+    }
+}

@@ -1,12 +1,7 @@
-#include <stdio.h>
-#include "cube.h"
-
-
+#include "tests.h"
 
 int main(void) {
-    cube_t c = newSolvedCube();
-    char* scramble = scrambleCube(&c);
-    printf("%s\n", scramble);
-    printf("valid: %d\n", checkSolvedCube(&c));
+    runTests();
+
     return 0;
 }
