@@ -1,25 +1,23 @@
 //
-// Created by andre on 2026-04-28.
+// Created by andre on 2026-05-06.
 //
 
 #ifndef CUBEBOT_SOLVER_H
 #define CUBEBOT_SOLVER_H
 #include "cube.h"
 
-int cornerOrientationCoordinate(const cube_t *c);
-int edgeOrientationCoordinate(const cube_t *c);
-int udSliceCoordinate(const cube_t *c);
+typedef struct {
+    int twist;
+    int flip;
+    int slice;
+    int cornPerm;
+    int sliceSorted;
+} coord_t;
 
-int cornerPermutationCoordinate(const cube_t *c);
-int edgePermutationCoordinate(const cube_t *c);
-int udSliceCoordinate2(const cube_t *c);
+coord_t getCoords(const cube_t *C);
 
-void invertCornerOrientationCoordinate(cube_t *c, int coord);
-void invertEdgeOrientationCoordinate(cube_t *c, int coord);
-void invertUDSliceCoordinate(cube_t *c, int coord);
-
-void invertCornerPermutationCoordinate(cube_t *c, int coord);
-void invertEdgePermutationCoordinate(cube_t *c, int coord);
-void invertUDSliceCoordinate2(cube_t *c, int coord);
+int phase1(coord_t coords, int depth, int maxDepth, int lastMove, move_t *solution);
+int phase2(coord_t coords, int depth, int maxDepth, int lastMove, move_t *solution);
+int solve(const cube_t *c, move_t  *solution);
 
 #endif //CUBEBOT_SOLVER_H

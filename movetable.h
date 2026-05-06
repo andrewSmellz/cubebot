@@ -5,7 +5,7 @@
 #ifndef CUBEBOT_MOVETABLE_H
 #define CUBEBOT_MOVETABLE_H
 #include "cube.h"
-#include "solver.h"
+#include "coordinates.h"
 
 extern int twistMove[2187][18];
 extern int flipMove[2048][18];

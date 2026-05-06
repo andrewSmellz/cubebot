@@ -6,11 +6,13 @@ set(CMAKE_C_STANDARD 11)
 add_executable(cubebot main.c
         cube.h
         cube.c
-        solver.c
-        solver.h
+        coordinates.c
+        coordinates.h
         movetable.c
         movetable.h
         tests.c
         tests.h
         pruning.c
-        pruning.h)
+        pruning.h
+        solver.c
+        solver.h)

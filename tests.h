@@ -5,7 +5,7 @@
 #ifndef CUBEBOT_TESTS_H
 #define CUBEBOT_TESTS_H
 #include "cube.h"
-#include "solver.h"
+#include "coordinates.h"
 #include "movetable.h"
 #include <assert.h>
 #include <stdio.h>
