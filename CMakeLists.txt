@@ -11,4 +11,6 @@ add_executable(cubebot main.c
         movetable.c
         movetable.h
         tests.c
-        tests.h)
+        tests.h
+        pruning.c
+        pruning.h)

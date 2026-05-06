@@ -41,7 +41,6 @@ void coordinatesTests(void) {
     printf("test 4 passed!\n");
 
     // Edge permutation: 0..479001599
-    // Too large to exhaustively test - sample instead
     for (int i = 0; i < 479001600; i ++) {
         cube_t c = newSolvedCube();
         invertEdgePermutationCoordinate(&c, i);
@@ -70,8 +69,6 @@ void moveTableTests(void) {
             c = twistMove[c][m];
             c = twistMove[c][m];
             c = twistMove[c][m];
-            if (c != i) { printf("twist FAIL: i=%d m=%d result=%d\n", i, m, c); assert(0); }
-
             assert(c == i);
         }
     printf("test 1 passed!\n");
