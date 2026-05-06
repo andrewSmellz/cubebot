@@ -10,53 +10,60 @@ int cornPermMove[40320][18];
 int udSliceSortedMove[11880][18];
 
 void createMoveTables(void) {
-    for (int i = 0; i < 2187; i++)
-        for (int j = 0; j < 6; j++) {
-            cube_t cube = newSolvedCube();
-            invertCornerOrientationCoordinate(&cube, i);
-            for (int k = 0; k < 3; k++) {
-                cubeTurnFace(&cube, j);
-                twistMove[i][3*j+k] = cornerOrientationCoordinate(&cube);
-            }
-        }
+    cube_t c;
 
-    for (int i = 0; i < 2048; i++)
+    c = newSolvedCube();
+    for (int i = 0; i < 2187; i++) {
+        invertCornerOrientationCoordinate(&c, i);
         for (int j = 0; j < 6; j++) {
-            cube_t cube = newSolvedCube();
-            invertEdgeOrientationCoordinate(&cube, i);
-            for (int k = 0; k < 3; k++) {
-                cubeTurnFace(&cube, j);
-                flipMove[i][3*j+k] = edgeOrientationCoordinate(&cube);
+            for (int k = 0; k < 4; k++) {
+                cubeTurnFace(&c, j);
+                if (k < 3) twistMove[i][3*j+k] = cornerOrientationCoordinate(&c);
             }
         }
+    }
 
-    for (int i = 0; i < 495; i++)
+    c = newSolvedCube();
+    for (int i = 0; i < 2048; i++) {
+        invertEdgeOrientationCoordinate(&c, i);
         for (int j = 0; j < 6; j++) {
-            cube_t cube = newSolvedCube();
-            invertUDSliceCoordinate(&cube, i);
-            for (int k = 0; k < 3; k++) {
-                cubeTurnFace(&cube, j);
-                udSliceMove[i][3*j+k] = udSliceCoordinate(&cube);
+            for (int k = 0; k < 4; k++) {
+                cubeTurnFace(&c, j);
+                if (k < 3) flipMove[i][3*j+k] = edgeOrientationCoordinate(&c);
             }
         }
+    }
 
-    for (int i = 0; i < 40320; i++)
+    c = newSolvedCube();
+    for (int i = 0; i < 495; i++) {
+        invertUDSliceCoordinate(&c, i);
         for (int j = 0; j < 6; j++) {
-            cube_t cube = newSolvedCube();
-            invertCornerPermutationCoordinate(&cube, i);
-            for (int k = 0; k < 3; k++) {
-                cubeTurnFace(&cube, j);
-                cornPermMove[i][3*j+k] = cornerPermutationCoordinate(&cube);
+            for (int k = 0; k < 4; k++) {
+                cubeTurnFace(&c, j);
+                if (k < 3) udSliceMove[i][3*j+k] = udSliceCoordinate(&c);
             }
         }
+    }
 
-    for (int i = 0; i < 11880; i++)
+    c = newSolvedCube();
+    for (int i = 0; i < 40320; i++) {
+        invertCornerPermutationCoordinate(&c, i);
         for (int j = 0; j < 6; j++) {
-            cube_t cube = newSolvedCube();
-            invertUDSliceCoordinate2(&cube, i);
-            for (int k = 0; k < 3; k++) {
-                cubeTurnFace(&cube, j);
-                udSliceSortedMove[i][3*j+k] = udSliceCoordinate2(&cube);
+            for (int k = 0; k < 4; k++) {
+                cubeTurnFace(&c, j);
+                if (k < 3) cornPermMove[i][3*j+k] = cornerPermutationCoordinate(&c);
             }
         }
+    }
+
+    c = newSolvedCube();
+    for (int i = 0; i < 11880; i++) {
+        invertUDSliceCoordinate2(&c, i);
+        for (int j = 0; j < 6; j++) {
+            for (int k = 0; k < 4; k++) {
+                cubeTurnFace(&c, j);
+                if (k < 3) udSliceSortedMove[i][3*j+k] = udSliceCoordinate2(&c);
+            }
+        }
+    }
 }
