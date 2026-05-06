@@ -34,6 +34,15 @@ typedef struct {
 }cube_t;
 
 
+typedef enum {
+    U1, U2, UP,
+    R1, R2, RP,
+    F1, F2, FP,
+    D1, D2, DP,
+    L1, L2, LP,
+    B1, B2, BP
+} move_t;
+
 cube_t newSolvedCube();
 void displayCube(const cube_t *c);
 int checkSolvedCube(const cube_t *c);
@@ -59,6 +68,9 @@ void cubeMoveFP(cube_t *c);
 void cubeMoveBP(cube_t *c);
 void cubeMoveRP(cube_t *c);
 void cubeMoveLP(cube_t *c);
+
+void cubeApplyMove(cube_t *c, move_t m);
+void cubeTurnFace(cube_t *c, int face);
 
 char* scrambleCube(cube_t *c);
 

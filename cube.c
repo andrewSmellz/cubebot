@@ -191,6 +191,28 @@ void cubeMoveBP(cube_t *c){cubeMoveB(c);cubeMoveB(c);cubeMoveB(c);}
 void cubeMoveRP(cube_t *c){cubeMoveR(c);cubeMoveR(c);cubeMoveR(c);}
 void cubeMoveLP(cube_t *c){cubeMoveL(c);cubeMoveL(c);cubeMoveL(c);}
 
+void cubeApplyMove(cube_t * c, move_t m) {
+    switch (m) {
+        case U1: cubeMoveU(c); break;  case U2: cubeMoveU2(c); break; case UP: cubeMoveUP(c); break;
+        case R1: cubeMoveR(c); break;  case R2: cubeMoveR2(c); break; case RP: cubeMoveRP(c); break;
+        case F1: cubeMoveF(c); break;  case F2: cubeMoveF2(c); break; case FP: cubeMoveFP(c); break;
+        case D1: cubeMoveD(c); break;  case D2: cubeMoveD2(c); break; case DP: cubeMoveDP(c); break;
+        case L1: cubeMoveL(c); break;  case L2: cubeMoveL2(c); break; case LP: cubeMoveLP(c); break;
+        case B1: cubeMoveB(c); break;  case B2: cubeMoveB2(c); break; case BP: cubeMoveBP(c); break;
+    }
+}
+
+void cubeTurnFace(cube_t *c, int face) {
+    switch (face) {
+        case 0: cubeMoveU(c); break;
+        case 1: cubeMoveR(c); break;
+        case 2: cubeMoveF(c); break;
+        case 3: cubeMoveD(c); break;
+        case 4: cubeMoveL(c); break;
+        case 5: cubeMoveB(c); break;
+    }
+}
+
 char* scrambleCube(cube_t *c) {
     static char scramble[SCRAMBLE_LEN+1];
     for (int i=0; i<SCRAMBLE_LEN;i++) {

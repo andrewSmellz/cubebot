@@ -109,3 +109,68 @@ int udSliceCoordinate2(const cube_t *c) {
     }
     return udSliceCoordinate(c)*24+coord;
 }
+
+void invertCornerOrientationCoordinate(cube_t *c, int coord) {
+    int parity=0;
+    for (int i=6;i>=0;i--) {
+        parity=parity+coord%3;
+        c->cornerOren[i]=coord%3;
+        coord/=3;
+    }
+    parity=parity+coord%3;
+    switch (parity) {
+        case 0: c->cornerOren[7] = 0; break;
+        case 1: c->cornerOren[7] = 2; break;
+        case 2: c->cornerOren[7] = 1; break;
+    }
+}
+
+void invertEdgeOrientationCoordinate(cube_t *c, int coord) {
+    int parity=0;
+    for (int i=10;i>=0;i--) {
+        parity=parity+coord%2;
+        c->edgeOren[i]=coord%2;
+        coord/=2;
+    }
+    c->edgeOren[11] = parity % 2;
+}
+
+void invertUDSliceCoordinate(cube_t *c, int coord) {
+    int occupied[12]={0};
+    int n=11;
+    int k=3;
+    while (k>=0) {
+        int v = nCk[n][k];
+        if (coord<v) {
+            k--;
+            occupied[n]=1;
+        }else {
+            coord=coord-v;
+        }
+        n--;
+    }
+
+    int sliceEdge = 4;//4 is FR edge
+    for (int ed=0; ed<12; ed++) {
+        if (occupied[ed]==1) {
+            for (int i=0; i<12; i++) {
+                if (c->edgePerm[i] == sliceEdge) {
+                    c->edgePerm[i] = c->edgePerm[ed];
+                    break;
+                }
+            }
+            c->edgePerm[ed] = sliceEdge;
+            if (sliceEdge < 7) sliceEdge++;
+        }
+    }
+}
+
+/**
+ * https://github.com/hkociemba/CubeExplorer/blob/master/CubiCube.pas
+ * InvCornPermCoord
+ * InvEdgePermCoord
+ * InvUDSliceSortedCoord
+ */
+void invertCornerPermutationCoordinate(cube_t *c, int coord){}
+void invertEdgePermutationCoordinate(cube_t *c, int coord){}
+void invertUDSliceCoordinate2(cube_t *c, int coord){}
