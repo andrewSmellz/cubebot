@@ -241,3 +241,54 @@ void invertUDSliceCoordinate2(cube_t *c, int coord) {
         }
     }
 }
+
+int edge8PermutationCoordinate(const cube_t *c) {
+    int arr[8];
+    int j = 0;
+    // Extract edges 0,1,2,3 and 8,9,10,11
+    for (int i = 0; i < 12; i++) {
+        if (c->edgePerm[i] < 4 || c->edgePerm[i] > 7) {
+            arr[j++] = c->edgePerm[i];
+        }
+    }
+
+    int coord = 0;
+    for (int i = 7; i > 0; i--) {
+        int s = 0;
+        for (int k = i - 1; k >= 0; k--) {
+            if (arr[k] > arr[i]) s++;
+        }
+        coord = (coord + s) * i;
+    }
+    return coord;
+}
+
+void invertEdge8PermutationCoordinate(cube_t *c, int coord) {
+    int order[8], used[8] = {0};
+    int edges[8] = {0, 1, 2, 3, 8, 9, 10, 11};
+
+    for (int i = 0; i < 8; i++) {
+        order[i] = coord % (i + 1);
+        coord /= (i + 1);
+    }
+
+    int extracted[8];
+    for (int i = 7; i >= 0; i--) {
+        int k = 7;
+        while (used[k]) k--;
+        while (order[i] > 0) {
+            order[i]--;
+            k--;
+            while (used[k]) k--;
+        }
+        extracted[i] = edges[k];
+        used[k] = 1;
+    }
+
+    int j = 0;
+    for (int i = 0; i < 12; i++) {
+        if (c->edgePerm[i] < 4 || c->edgePerm[i] > 7) {
+            c->edgePerm[i] = extracted[j++];
+        }
+    }
+}

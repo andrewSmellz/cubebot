@@ -2,7 +2,8 @@
 // Created by andre on 2026-04-25.
 //
 #include "cube.h"
-#define SCRAMBLE_LEN 50
+#include <time.h>
+#define SCRAMBLE_LEN 20
 cube_t newSolvedCube() {
     cube_t cube;
     for (int i=0;i<8;i++) {
@@ -44,6 +45,32 @@ int checkIfSolvable(const cube_t *c) {
     return (cornerSum % 3 == 0) && (edgeSum % 2 == 0);
 }
 
+void printMoves(const move_t* moves) {
+    for (int i = 0; moves[i] != (move_t)-1; i++) {
+        switch (moves[i]) {
+            case U1: printf("U ");  break;
+            case U2: printf("U2 "); break;
+            case UP: printf("U' "); break;
+            case R1: printf("R ");  break;
+            case R2: printf("R2 "); break;
+            case RP: printf("R' "); break;
+            case F1: printf("F ");  break;
+            case F2: printf("F2 "); break;
+            case FP: printf("F' "); break;
+            case D1: printf("D ");  break;
+            case D2: printf("D2 "); break;
+            case DP: printf("D' "); break;
+            case L1: printf("L ");  break;
+            case L2: printf("L2 "); break;
+            case LP: printf("L' "); break;
+            case B1: printf("B ");  break;
+            case B2: printf("B2 "); break;
+            case BP: printf("B' "); break;
+        }
+    }
+
+}
+
 void cubeMoveU(cube_t *c) {
     uint8_t temp = c->cornerPerm[0];
     c->cornerPerm[0] = c->cornerPerm[1];
@@ -60,24 +87,24 @@ void cubeMoveU(cube_t *c) {
 
 void cubeMoveD(cube_t *c) {
     uint8_t temp = c->cornerPerm[4];
-    c->cornerPerm[4] = c->cornerPerm[7];
-    c->cornerPerm[7] = c->cornerPerm[6];
-    c->cornerPerm[6] = c->cornerPerm[5];
-    c->cornerPerm[5] = temp;
+    c->cornerPerm[4] = c->cornerPerm[5];
+    c->cornerPerm[5] = c->cornerPerm[6];
+    c->cornerPerm[6] = c->cornerPerm[7];
+    c->cornerPerm[7] = temp;
 
     temp = c->edgePerm[8];
-    c->edgePerm[8] = c->edgePerm[11];
-    c->edgePerm[11] = c->edgePerm[10];
-    c->edgePerm[10] = c->edgePerm[9];
-    c->edgePerm[9] = temp;
+    c->edgePerm[8] = c->edgePerm[9];
+    c->edgePerm[9] = c->edgePerm[10];
+    c->edgePerm[10] = c->edgePerm[11];
+    c->edgePerm[11] = temp;
 }
 
 void cubeMoveF(cube_t *c) {
     uint8_t temp = c->cornerPerm[0];
-    c->cornerPerm[0] = c->cornerPerm[4];
-    c->cornerPerm[4] = c->cornerPerm[5];
-    c->cornerPerm[5] = c->cornerPerm[1];
-    c->cornerPerm[1] = temp;
+    c->cornerPerm[0] = c->cornerPerm[1];
+    c->cornerPerm[1] = c->cornerPerm[5];
+    c->cornerPerm[5] = c->cornerPerm[4];
+    c->cornerPerm[4] = temp;
 
     temp = c->cornerOren[0];
     c->cornerOren[0] = (c->cornerOren[4]+1) % 3;
@@ -86,10 +113,10 @@ void cubeMoveF(cube_t *c) {
     c->cornerOren[1] = (temp+2)%3;
 
     temp = c->edgePerm[1];
-    c->edgePerm[1] = c->edgePerm[4];
-    c->edgePerm[4] = c->edgePerm[8];
-    c->edgePerm[8] = c->edgePerm[5];
-    c->edgePerm[5] = temp;
+    c->edgePerm[1] = c->edgePerm[5];
+    c->edgePerm[5] = c->edgePerm[8];
+    c->edgePerm[8] = c->edgePerm[4];
+    c->edgePerm[4] = temp;
 
     temp = c->edgeOren[1];
     c->edgeOren[1] = c->edgeOren[4]^1;
@@ -215,7 +242,9 @@ void cubeTurnFace(cube_t *c, int face) {
 
 char* scrambleCube(cube_t *c) {
     static char scramble[SCRAMBLE_LEN+1];
+    srand(time(0));
     for (int i=0; i<SCRAMBLE_LEN;i++) {
+
         const int move = rand() % 6;
         switch (move) {
             case 0:

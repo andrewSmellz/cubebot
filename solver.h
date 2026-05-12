@@ -12,12 +12,17 @@ typedef struct {
     int slice;
     int cornPerm;
     int sliceSorted;
+    int edge8Perm;
+    cube_t root;  // original scrambled cube, for replaying phase1 moves at the phase boundary
 } coord_t;
 
 coord_t getCoords(const cube_t *C);
 
-int phase1(coord_t coords, int depth, int maxDepth, int lastMove, move_t *solution);
-int phase2(coord_t coords, int depth, int maxDepth, int lastMove, move_t *solution);
+static int max(int a, int b);
+
+int phase2(coord_t coords, int depth, int maxDepth, int lastFace, move_t *solution);
+int phase1(coord_t coords, int depth, int maxDepth, int lastFace, move_t *solution);
+
 int solve(const cube_t *c, move_t  *solution);
 
 #endif //CUBEBOT_SOLVER_H

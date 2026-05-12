@@ -12,6 +12,7 @@ extern int flipMove[2048][18];
 extern int udSliceMove[495][18];
 extern int cornPermMove[40320][18];
 extern int udSliceSortedMove[11880][18];
+extern int edge8PermMove[40320][18];
 
 void createMoveTables(void);
 

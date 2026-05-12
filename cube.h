@@ -47,6 +47,7 @@ cube_t newSolvedCube();
 void displayCube(const cube_t *c);
 int checkSolvedCube(const cube_t *c);
 int checkIfSolvable(const cube_t *c);
+void printMoves(const move_t* moves);
 
 void cubeMoveU(cube_t *c);
 void cubeMoveD(cube_t *c);

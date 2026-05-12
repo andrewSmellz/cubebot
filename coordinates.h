@@ -22,4 +22,7 @@ void invertCornerPermutationCoordinate(cube_t *c, int coord);
 void invertEdgePermutationCoordinate(cube_t *c, int coord);
 void invertUDSliceCoordinate2(cube_t *c, int coord);
 
+int edge8PermutationCoordinate(const cube_t *c);
+void invertEdge8PermutationCoordinate(cube_t *c, int coord);
+
 #endif //CUBEBOT_COORDINATES_H
