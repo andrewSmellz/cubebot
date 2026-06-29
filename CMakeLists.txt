@@ -3,16 +3,16 @@ project(cubebot C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(cubebot main.c
-        cube.h
-        cube.c
-        coordinates.c
-        coordinates.h
-        movetable.c
-        movetable.h
-        tests.c
-        tests.h
-        pruning.c
-        pruning.h
-        solver.c
-        solver.h)
+add_executable(cubebot solver/main.c
+        solver/cube.h
+        solver/cube.c
+        solver/coordinates.c
+        solver/coordinates.h
+        solver/movetable.c
+        solver/movetable.h
+        solver/tests.c
+        solver/tests.h
+        solver/pruning.c
+        solver/pruning.h
+        solver/solver.c
+        solver/solver.h)
