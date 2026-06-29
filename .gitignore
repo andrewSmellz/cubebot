@@ -2,6 +2,16 @@
 .idea/
 cmake-build-*/
 
+# STM32 / CubeMX
+.metadata/
+.settings/
+.mxproject
+build/
+*.bin
+*.elf
+*.map
+*.lst
+
 # Compiled Object files
 *.o
 *.obj
