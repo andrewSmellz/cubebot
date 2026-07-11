@@ -7,7 +7,7 @@
 #include <stdint.h>
 
 int uartInit(void);
-int uartKill(void);
+int uartTest(int fd);
 int uartWrite(void);
 int uartRead(void);
 
