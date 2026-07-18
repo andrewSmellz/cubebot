@@ -18,4 +18,7 @@ add_executable(cubebot solver/main.c
         solver/solver.h
         packet/packet.h
         solver/uart.c
-        solver/uart.h)
+        solver/uart.h
+        packet/packet.h
+        packet/packet.c
+        )

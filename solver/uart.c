@@ -82,3 +82,22 @@ int uartTest(int fd){
         printf("RX: %02x  %s\n", rx, (rx == tx) ? "OK" : "MISMATCH");
     }
 }
+
+int uartWrite(uartPacket_t* packet, int fd){
+    unsigned char rx;
+    //TODO when in a more confident position, remove these tests
+    write(fd, &packet->startByte, 1);
+    printf("TX: %02x\n", packet->startByte);
+    read(fd, &rx, 1);
+    printf("RX: %02x  %s\n", rx, (rx == packet->startByte) ? "OK" : "MISMATCH");
+
+    write(fd, &packet->operation, 1);
+    printf("TX: %02x\n", packet->operation);
+    read(fd, &rx, 1);
+    printf("RX: %02x  %s\n", rx, (rx == packet->operation) ? "OK" : "MISMATCH");
+
+    write(fd, &packet->stopByte, 1);
+    printf("TX: %02x\n", packet->stopByte);
+    read(fd, &rx, 1);
+    printf("RX: %02x  %s\n", rx, (rx == packet->stopByte) ? "OK" : "MISMATCH");
+}

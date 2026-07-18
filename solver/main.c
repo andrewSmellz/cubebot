@@ -1,38 +1,42 @@
 #include <unistd.h>
-
 #include "movetable.h"
 #include "pruning.h"
 #include "solver.h"
 #include "tests.h"
 #include "uart.h"
+#include "../packet/packet.h"
 
 int main(void) {
-    // createMoveTables();
-    // createPruningTables();
+    createMoveTables();
+    createPruningTables();
 
-    // cube_t cube = newSolvedCube();
-    // char* scramble = scrambleCube(&cube);
-    // printf("the scramble is: %s\n", scramble);
+    cube_t cube = newSolvedCube();
+    char* scramble = scrambleCube(&cube);
+    printf("the scramble is: %s\n", scramble);
 
-    // move_t solution[35];
-    // solve(&cube, solution);
+    move_t solution[35];
+    solve(&cube, solution);
 
-    // printf("the solution  is: \n");
+    printf("the solution  is: \n");
 
-    // printMoves(solution);
-    // printf("\n");
+    printMoves(solution);
+    printf("\n");
 
-    // for (int i = 0; solution[i] != (move_t)-1; i++) {
-    //     cubeApplyMove(&cube, solution[i]);
-    // }
+    for (int i = 0; solution[i] != (move_t)-1; i++) {
+        cubeApplyMove(&cube, solution[i]);
+    }
 
-    // printf("solved:%d",checkSolvedCube(&cube));
+    printf("solved:%d",checkSolvedCube(&cube));
 
 
 
     int fd = uartInit();
     uartTest(fd);
-    close(fd);
 
+    uartPacket_t packet;
+    buildPacket(&packet, U1);
+    uartWrite(&packet,fd);
+
+    close(fd);
     return 0;
 }

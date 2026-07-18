@@ -5,7 +5,7 @@
 #ifndef CUBEBOT_PACKET_H
 #define CUBEBOT_PACKET_H
 #include <stdint.h>
-
+#include "../solver/cube.h"
 #define START_BYTE 0xAA
 #define STOP_BYTE 0xFF
 
@@ -20,8 +20,10 @@ typedef enum {
 
 typedef struct {
     uint8_t startByte;
-    uint8_t operation;
+    moveOperation_t operation;
     uint8_t stopByte;
 }uartPacket_t;
+
+int buildPacket(uartPacket_t* packet, move_t operation);
 
 #endif //CUBEBOT_PACKET_H
