@@ -105,7 +105,9 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 
+#include "../../../packet/packet.h"
   uint8_t rxByte;
+  moveOperation_t solution[32];
 
   while (1)
   {

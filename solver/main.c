@@ -14,7 +14,7 @@ int main(void) {
     char* scramble = scrambleCube(&cube);
     printf("the scramble is: %s\n", scramble);
 
-    move_t solution[35];
+    move_t solution[32];
     solve(&cube, solution);
 
     printf("the solution  is: \n");
