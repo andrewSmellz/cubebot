@@ -83,7 +83,7 @@ int uartTest(int fd){
     }
 }
 
-int uartWrite(uartPacket_t* packet, int fd){
+int uartWrite(const uartPacket_t* packet, const int fd){
     unsigned char rx;
     //TODO when in a more confident position, remove these tests
     write(fd, &packet->startByte, 1);
@@ -100,4 +100,12 @@ int uartWrite(uartPacket_t* packet, int fd){
     printf("TX: %02x\n", packet->stopByte);
     read(fd, &rx, 1);
     printf("RX: %02x  %s\n", rx, (rx == packet->stopByte) ? "OK" : "MISMATCH");
+}
+
+void uartWriteSolution(const move_t* solution, const int fd) {
+    for (int i = 0; solution[i] != (move_t)-1; i++) {
+        uartPacket_t packet;
+        buildPacket(&packet, solution[i]);
+        uartWrite(&packet, fd);
+    }
 }

@@ -9,7 +9,8 @@
 
 int uartInit(void);
 int uartTest(int fd);
-int uartWrite(uartPacket_t* packet, int fd);
+int uartWrite(const uartPacket_t* packet, int fd);
+void uartWriteSolution(const move_t* solution, const int fd);
 int uartRead(void);
 
 #endif //CUBEBOT_UART_H
