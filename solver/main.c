@@ -26,16 +26,13 @@ int main(void) {
         cubeApplyMove(&cube, solution[i]);
     }
 
-    printf("solved:%d",checkSolvedCube(&cube));
+    printf("solved:%d\n",checkSolvedCube(&cube));
 
 
 
     int fd = uartInit();
-    uartTest(fd);
 
-    uartPacket_t packet;
-    buildPacket(&packet, U1);
-    uartWrite(&packet,fd);
+    uartWriteSolution(solution,fd);
 
     close(fd);
     return 0;
