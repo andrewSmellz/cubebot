@@ -18,7 +18,8 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-
+#include "../Inc/ringbuffer.h"
+#include "../../../packet/packet.h"
 #include <stdint.h>
 
 /* Private includes ----------------------------------------------------------*/
@@ -48,7 +49,8 @@ UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
-
+static ringBuffer_t uartRb;
+static uint8_t isrRxByte;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -98,24 +100,23 @@ int main(void)
   MX_TIM2_Init();
   MX_USART2_UART_Init();
   MX_USART1_UART_Init();
-  /* USER CODE BEGIN 2 */
 
+  /* USER CODE BEGIN 2 */
+  rbInit(&uartRb);
+  HAL_UART_Receive_IT(&huart1, &isrRxByte, 1);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-
-#include "../../../packet/packet.h"
-  uint8_t rxByte;
-  moveOperation_t solution[32];
-
   while (1)
   {
-    /* USER CODE END WHILE */
-    if (HAL_UART_Receive(&huart1, &rxByte, 1, HAL_MAX_DELAY) == HAL_OK)
+    uint8_t byte;
+    if (rbPop(&uartRb, &byte))
     {
-      HAL_UART_Transmit(&huart1, &rxByte, 1, HAL_MAX_DELAY);
+      HAL_UART_Transmit(&huart1, &byte, 1, HAL_MAX_DELAY);
     }
+    /* USER CODE END WHILE */
+
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -319,7 +320,14 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+  if (huart->Instance == USART1)
+  {
+    rbPush(&uartRb, isrRxByte);
+    HAL_UART_Receive_IT(&huart1, &isrRxByte, 1); // re-arm for next byte
+  }
+}
 /* USER CODE END 4 */
 
 /**

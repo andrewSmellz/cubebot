@@ -13,10 +13,10 @@ typedef struct {
     volatile uint8_t buf[RB_SIZE];
     volatile uint16_t head;
     volatile uint16_t tail;
-} ring_buffer_t;
+} ringBuffer_t;
 
-void rb_init(ring_buffer_t *rb);
-int rb_push(ring_buffer_t *rb, uint8_t byte);
-int rb_pop(ring_buffer_t *rb, uint8_t *byte);
-int rb_empty(const ring_buffer_t *rb);
+void rbInit(ringBuffer_t *rb);
+int rbPush(ringBuffer_t *rb, uint8_t byte);
+int rbPop(ringBuffer_t *rb, uint8_t *byte);
+int rbEmpty(const ringBuffer_t *rb);
 #endif //CUBEBOT_RINGBUFFER_H
