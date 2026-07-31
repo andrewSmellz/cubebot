@@ -21,4 +21,4 @@ add_executable(cubebot solver/main.c
         solver/uart.h
         packet/packet.h
         packet/packet.c
-        )
+)
