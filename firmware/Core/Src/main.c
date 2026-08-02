@@ -108,15 +108,15 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
-  {
+  while (1) {
     if (HAL_UART_Receive(&huart1, &rxByte, 1, HAL_MAX_DELAY) == HAL_OK)
     {
       HAL_UART_Transmit(&huart1, &rxByte, 1, HAL_MAX_DELAY);
-    /* USER CODE END WHILE */
+    }
 
-    /* USER CODE BEGIN 3 */
+    /* USER CODE END WHILE */
   }
+    /* USER CODE BEGIN 3 */
   /* USER CODE END 3 */
 }
 
